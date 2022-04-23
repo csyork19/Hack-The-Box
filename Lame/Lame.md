@@ -10,7 +10,7 @@ Status: Retired
 
 What operating system is on this machine? Linux
 What ports/services are on running on this machine?
-- ![Results!](/screenshots/1.png)
+- ![Results!](screenshots/1.png)
 
 Can you access any of the ports on this computer? (Example: 10.10.10.3:80). No
 
@@ -27,18 +27,18 @@ After trying a few things and doing a little research online, I found a metasplo
 
 
 Options:
-- ![Results!](/screenshots/2.png)
+- ![Results!](screenshots/2.png)
 
-- ![Results!](/screenshots/3.png)
+- ![Results!](screenshots/3.png)
 
 
 Run exploit:
-- ![Results!](/screenshots/4.png)
+- ![Results!](screenshots/4.png)
 
 
 ### Flags
 User:
-- ![Results!](/screenshots/5.png)
+- ![Results!](screenshots/5.png)
 
 Root: 
-- ![Results!](/screenshots/6.png)
+- ![Results!](screenshots/6.png)
