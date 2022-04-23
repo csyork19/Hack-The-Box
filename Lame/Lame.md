@@ -1,7 +1,7 @@
 # Lame
 
-Machine: [Lame](https://app.hackthebox.com/machines/Lame)
-Difficulty: Easy
+Machine: [Lame](https://app.hackthebox.com/machines/Lame)\
+Difficulty: Easy\
 Status: Retired
 
 
