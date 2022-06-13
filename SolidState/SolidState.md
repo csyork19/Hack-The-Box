@@ -56,6 +56,8 @@ In the dirbuster scan results, I did find a readme.txt file that you can see bel
 
 
 
+I went back through the version running with each of the services, and I did find this exploit: https://www.exploit-db.com/exploits/50347
+
 
 ## Exploitation
 
