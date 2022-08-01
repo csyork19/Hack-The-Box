@@ -28,25 +28,12 @@ After browsing around some on the webpage and using the gobuster tool, I came ac
 
 If you are www-data user, then you will have access to /var/html
 
-We have a web shell and we have rwx permissions in the /var/html/uploads folder...How can we upload a script from our machine to this directory? Well, we can use wget...and if we use wget, then we will need to host the php reverse shell file so that we can get it. To host the file we will start a python server
+We have a web shell and we have rwx permissions in the /var/html/uploads folder...How can we upload a script from our machine to this directory? Well, we can use wget...and if we use wget, then we will need to host the php reverse shell file so that we can get it. To host the file we will start a python server.
 
-Run this command: 'python3 http.server 80'
-
-
-Please note that if the exploit file that you have on your machine can only be access when you start the server in the same directory as the file. 
-
-** Insert image of getting the file on the target machine ***
+<pre>python3 -m http.server 80</pre>
 
 
-No ttypresent error
-
-
-*** insert image of getting a tty bash shell ***
-https://netsec.ws/?p=337
-I start with just going with the first command and see if it gives me the tty shell.
-
-https://pentestmonkey.net/cheat-sheet/shells/reverse-shell-cheat-sheet
-
+Please note that the exploit file that you have on your machine can only be accessed when you start the server in the same directory as the file. 
 
 
 ### Flags
@@ -67,17 +54,17 @@ Looking at the uploads directory, we have write access. Let's upload a php file 
 
 - ![Results!](screenshots/6.png) 
 
-Now with the file uploaded, lets start a netcat listner on a port. THe php script is going to point to my machine and the specified port so we need to use the same port for the netcat listener.
+Now with the file uploaded, I started a netcat listner on a port. The php script is going to point to my machine and the specified port so we need to use the same port for the netcat listener.
 
 - ![Results!](screenshots/7.png) 
 
 We have a reverse shell!
 - ![Results!](screenshots/8.png) 
 
-Next I escelated to the scriptmanager user by doing this: 'sudo su scriptmanager /bin/bash'.  Once I was the scriptmanager user, I went up to the root directory to look at all of the system directorys etc. All of the directories that were shown were owned by root, but there was one directory 'scripts' that was owned by the user scriptmanager. Navigating to the '/scripts' directory and view the files, there is a python file and a txt. \
-The python script has rwx privileges for the scriptmanager user but the txt file and only be rwx by root. I had to look this up online, but if you type the command to view the files, permissions, groups and time of the files, you can see that the .txt file time keeps getting updated every minute or so....since this is happening periodically there is more than likely a cron job running the python script which puts it's output in the .txt file when the cron job is run. \
+Next, I escalated to the scriptmanager user by doing this: 'sudo su scriptmanager /bin/bash'.  Once I was the scriptmanager user, I went up to the root directory to look at all of the system directories etc. All of the directories that were shown were owned by root, but there were one directory 'scripts' that was owned by the user scriptmanager. Navigating to the '/scripts' directory and viewing the files, there is a python file and a txt file.
+The python script has rwx privileges for the scriptmanager user but the txt file and only be rwx by root. I had to look this up online, but if you type the command to view the files, permissions, groups, and time of the files, you can see that the .txt file time keeps getting updated every minute or so....since this is happening periodically there is more than likely a cron job running the python script which puts it's output in the .txt file when the cron job is run. \
 
-Based on this, we can probably just upload a python reverse shell, start a netcat listener, and then we should have a root shell. I used a python reverse shell, started a python server and pulled in the file on the target machine. Rename the exploit.py script with the same name of the python script that is getting executing by a cron job. After waiting for the cron job to execute the script, we have now created a reverse shell with root privileges. 
+Based on this, we can probably just upload a python reverse shell, start a netcat listener, and then we should have a root shell. I used a python reverse shell, started a python server, and pulled in the file on the target machine. Rename the exploit.py script with the same name as the python script that is getting executed by a cron job. After waiting for the cron job to execute the script, we have now created a reverse shell with root privileges. 
 
 
 Root: 

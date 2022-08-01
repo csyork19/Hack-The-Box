@@ -11,35 +11,27 @@ Status: Retired
 What operating system is on this machine? Windows 7
 What ports/services are on running on this machine? 
 
-- ![Results!](screenshots/1.png)
+![Results!](screenshots/1.png)
 
 
 
 Since smb is running on this machine, I went ahead and ran a nmap script to check for smb vulnerabilites.
 
-- ![Results!](screenshots/6.png)
+![Results!](screenshots/6.png)
 
-
-
-Now that we know that the machine is vulnerable, lets exploit it.
+Now that we know that the machine is vulnerable, let's exploit it.
 
 ## Exploitation
-
-
-The first thing I tried was to search the vulnerability in metasploit.
+The first thing I tried was to search for the vulnerability in metasploit.
 With Metasploit:
-- ![Results!](screenshots/2.png)
-
-
-
+![Results!](screenshots/2.png)
 
 ### Flags
 User:
-- ![Results!](screenshots/3.png)
+![Results!](screenshots/3.png)
 
 
 Root: 
-- ![Results!](screenshots/4.png)
+![Results!](screenshots/4.png)\
 
-
-- ![Results!](screenshots/5.png)
+![Results!](screenshots/5.png)
