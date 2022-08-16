@@ -32,20 +32,39 @@ For the version of apache, it looks like it might be vulnerable to a local escal
 
 ![Results!](screenshots/4.png)
 
-From the dirbuster results, I have not found any page that is of significance yet. I do see that this is a WordPress page, so I ran wpscan to find any users, themes, or plugins being used, but I did not find any that were vulnerable. The Nikto scan results did say there is a xss vulnerability but I am not sure if it will be of any use here.
+
+Below are the gobuster results:
+<pre>gobuster dir -u blocky.htb -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -x php -t 40</pre>
+![Results!](screenshots/5.png)
+
+
+I do see that this is a wordpress site so I go ahead and enumerate more by using wpscan. I find that there is a user named 'Notch' or 'notch'.
+![Results!](screenshots/6.png)
+
+
+In the /plugins that we discovered by using gobuster, I found two jar files that I was able to download. I could not make out everything in the jar file, ![Results!](screenshots/7.png)
+
+![Results!](screenshots/8.png)
+
 
 
 ### Minecraft 
+I did not find anything online that revealed any vulnerabilites for the version that is running on this machine.
 
 
-To BE CONTINUED.......
-## Flags
+## Exploitation
+Turns out that the password that I found is a valid password for the user notch. We are able to ssh into the machine for the user notch.
+![Results!](screenshots/9.png)
 
-### User/Local flag
+### Flags
 
 
-### Root flag
+#### User/Local flag
+![Results!](screenshots/10.png)
 
+#### Root flag
+To get root, I ran the command <pre>sudo -l</pre> to see what I can run as sudo with no password. To my suprise I can run any sudo command. Running sudo effectively makes me become root.
+![Results!](screenshots/11.png)
 
 
 
